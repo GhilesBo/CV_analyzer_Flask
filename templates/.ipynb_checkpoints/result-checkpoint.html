@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultat de l'analyse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #ats-details {
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleDetails() {
+            var details = document.getElementById("ats-details");
+            if (details.style.display === "none") {
+                details.style.display = "block";
+            } else {
+                details.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Résultat de l'analyse</h1>
+        
+        <!-- Score de correspondance -->
+        <div class="alert alert-info mt-4">
+            <strong>Score de correspondance :</strong> {{ score }}%
+        </div>
+
+        <!-- Compétences qui ont bien matché -->
+        <div class="mt-4">
+            <h3>Compétences qui ont bien matché :</h3>
+            <ul>
+                {% for skill in competences_match %}
+                    <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Compétences manquantes avec infobulles -->
+        <div class="mt-4">
+            <h3>Compétences manquantes :</h3>
+            <ul>
+                {% for item in competences_manquantes %}
+                    <li title="{{ item.origine }}">{{ item.competence }}</li> <!-- Infobulle contenant l'origine de la compétence -->
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Conseils basés sur le score -->
+        <div class="mt-4">
+            {% if score >= 70 %}
+                <div class="alert alert-success">Votre CV correspond bien à l'offre. Vous n'avez pas besoin de faire de grandes modifications.</div>
+            {% elif score >= 40 %}
+                <div class="alert alert-warning">Votre CV est assez proche de l'offre. Vous devriez considérer d'ajouter ou renforcer les compétences manquantes.</div>
+            {% else %}
+                <div class="alert alert-danger">
+                    Votre CV ne correspond pas suffisamment à l'offre. Pensez à ajouter ou adapter des compétences, et reformuler certaines de vos réalisations pour correspondre aux missions de l'offre.
+                    <br><br>
+                    
+                    
+                    <!-- Bouton pour afficher plus de détails -->
+                    <button class="btn btn-info mt-2" onclick="toggleDetails()">Pourquoi ce score est faible ?</button>
+                    
+                    <!-- Détails sur les ATS -->
+                    <div id="ats-details" class="mt-3">
+                        <p><!-- Phrase supplémentaire expliquant les problèmes avec les algorithmes -->
+                    Parfois, les algorithmes de lecture automatique (ATS) ne parviennent pas à extraire correctement le contenu des CV, surtout si celui-ci est présent dans des tableaux, colonnes ou autres structures complexes. Vous pouvez utiliser des outils comme <a href="https://cvreader.fr/" target="_blank">CVReader</a> pour vérifier comment votre CV est perçu par les ATS et quels éléments sont récupérés, à noter que celui-ci est un outil gratuit (à l'heure actuelle, je développerais bientôt un aperçu de la lecture de votre CV sur ce site). </p>
+                        <p><strong>Comment fonctionne un ATS (Applicant Tracking System) :</strong></p>
+                        <p>Un ATS est un logiciel utilisé par les recruteurs pour filtrer et classer les CV. Voici quelques conseils pour que votre CV passe mieux les filtres ATS :</p>
+                        <ul>
+                        
+                            <li>Utilisez des mots-clés de l'offre d'emploi dans votre CV (compétences, outils techniques, tâches, etc.), quand vous mettez la souris sur les mots manquants la provenance du mot clé s'affiche et vous donne une idée pour apporter une amélioration (parfois l'algorithme peut détecter que certains mots sont techniques mais en réalité ne le sont pas, donc un minimum de réflexion).</li>
+                            <li>Évitez les graphiques complexes ou des formats non standards (les ATS préfèrent les formats texte). Un format PDF bien structuré est souvent recommandé.</li>
+                            <li>Assurez-vous que votre CV est lisible par une machine : ne mélangez pas les colonnes, tableaux ou autres structures compliquées.</li>
+                            <li>Adaptez vos expériences aux missions spécifiées dans l'offre d'emploi pour améliorer la correspondance.</li>
+                            <li>Indiquez clairement les compétences techniques demandées, surtout celles en lien direct avec l'offre.</li>
+                            <p> PS : Le score résultant est une approximation et le score réel de correspondance dépendra toujours de l'ATS utilisé par l'entreprise dans laquelle vous candidatez, celui-ci peut être beaucoup plus stricte (calcul du nombre d'années dans vos expérience si ils exigent 5 ans d'expérience par exemple, techno obligatoire absente de votre CV => score pénalisant, ils peuvent aussi modifier des paramètres de l'ATS afin de rendre certains mots/techno/outils obligatoire et donc l'absence de ceux-ci vous pénalisera), comme aussi il existe des ATS moins stricte qui vérifieront uniquement votre bagages techniques (extrêmement rare ou probablement des petites boîtes qui arriveront à développer un outil moins performant que celui-ci en prenant 1 mois et 300 pauses cigarettes). </p>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Bouton retour à l'analyse -->
+        <div class="mt-4 text-center">
+            <a href="/" class="btn btn-primary">Retour à l'analyse</a>
+            
+        </div>
+    </div>
+</body>
+</html>

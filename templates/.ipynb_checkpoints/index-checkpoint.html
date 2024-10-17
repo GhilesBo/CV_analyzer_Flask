@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse CV vs Offre d'emploi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-4">Analyse de Correspondance CV/Offre d'Emploi</h1>
+
+        <!-- Formulaire d'analyse CV vs Offre d'emploi -->
+        <form action="/upload" method="POST" enctype="multipart/form-data" class="mt-4">
+            <div class="mb-3">
+                <label for="cv" class="form-label">Télécharger votre CV (PDF)</label>
+                <input type="file" class="form-control" id="cv" name="cv" accept="application/pdf" required>
+            </div>
+            <div class="mb-3">
+                <label for="job_description" class="form-label">Copiez-collez les parties importantes de l'offre d'emploi :</label>
+                <ul class="instructions">
+                    <li>Les missions principales</li>
+                    <li>L'environnement technique</li>
+                    <li>La description du profil recherché</li>
+                </ul>
+                <textarea class="form-control" id="job_description" name="job_description" rows="6" placeholder="Exemple :\n- Installer et configurer les bases de données...\n- Environnement technique : Oracle, PostgreSQL..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Analyser</button>
+        </form>
+
+        <!-- Boutons pour afficher les modales -->
+        <div class="mt-4 text-center">
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalLangageSoigne">
+                Version Langage Soigné
+            </button>
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalLangageVulgaire">
+                Version Vulgaire et Directe
+            </button>
+        </div>
+
+        <!-- Modal Langage Soigné -->
+        <div class="modal fade" id="modalLangageSoigne" tabindex="-1" aria-labelledby="modalLangageSoigneLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLangageSoigneLabel">Important (Version Langage Soigné)</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+            Les ATS (Applicant Tracking Systems) sont des outils utilisés par les entreprises pour automatiser le tri et la gestion des candidatures. Ils permettent de filtrer des centaines, voire des milliers de CV en fonction de critères prédéfinis, généralement des mots-clés et des compétences spécifiques. Bien qu'efficaces pour réduire la charge de travail des recruteurs, ces systèmes présentent des limites importantes.
+        </p>
+
+        <h3>Comment fonctionnent les ATS</h3>
+        <p>
+            Lorsqu'un candidat soumet son CV, l'ATS scanne le document à la recherche de mots-clés correspondant à l'offre d'emploi. Ces mots-clés peuvent inclure des compétences, des technologies ou des qualifications spécifiques mentionnées dans l'annonce. Ensuite, l'ATS attribue un score de correspondance au CV. Si ce score est en dessous d'un seuil déterminé, le candidat est automatiquement rejeté sans intervention humaine (même les emails de refus).
+        </p>
+
+        <h3>Limites des ATS</h3>
+
+        <h4>1. Rigidité excessive des mots-clés</h4>
+        <p>
+            Les ATS fonctionnent principalement par correspondance de mots-clés, ce qui signifie qu'un candidat peut être rejeté s'il n'a pas utilisé les termes exacts de l'offre. Même si vous possédez les compétences demandées, une simple différence de formulation peut vous coûter votre chance d'obtenir un entretien.
+        </p>
+        <p><strong>Exemple :</strong> Si l'offre d'emploi parle de "gestion de projets", mais que votre CV mentionne "supervision de projets", l'ATS peut ne pas comprendre que c'est la même chose et vous pénaliser pour ce simple écart de vocabulaire.</p>
+
+        <h4>2. Absence de jugement humain</h4>
+        <p>
+            Un ATS n'a pas la capacité d'évaluer les compétences transférables ou le potentiel d'un candidat. Si une compétence manque ou est formulée différemment, le système ne va pas supposer que vous pouvez l'acquérir rapidement ou que vous avez une expérience similaire. Cette absence de flexibilité peut écarter des candidats qui seraient pourtant très qualifiés pour le poste.
+        </p>
+        <p><strong>Exemple :</strong> Vous pourriez avoir une expérience extensive dans un domaine technique similaire, mais si vous n'avez pas la compétence exacte demandée, l'ATS ne prendra pas en compte votre capacité à apprendre rapidement ou à vous adapter.</p>
+
+        <h4>3. Incapacité à lire certains formats</h4>
+        <p>
+            Les ATS sont souvent limités dans leur capacité à lire des CV avec des formats complexes, comme ceux utilisant des colonnes, des graphiques ou des images. Cela peut entraîner une perte d'informations critiques et réduire vos chances d'obtenir un score de correspondance élevé.
+        </p>
+        <p><strong>Exemple :</strong> Un CV avec un design élaboré ou des logos de certifications peut ne pas être lu correctement, ce qui fait que des informations clés sur vos compétences ne sont pas prises en compte.</p>
+                        <p> <a href="https://cvreader.fr/" target="_blank">CVReader</a> pour vérifier comment votre CV est perçu par les ATS et quels éléments sont récupérés, à noter que celui-ci est un outil gratuit (à l'heure actuelle, je développerais bientôt un aperçu de la lecture de votre CV sur ce site).
+
+        <h4>4. Focus sur les compétences techniques, négligence des qualités humaines</h4>
+        <p>
+            Les ATS accordent une grande importance aux compétences techniques et aux mots-clés, mais ne tiennent pas compte des qualités humaines comme la communication, le leadership, ou l'adaptabilité, qui sont souvent cruciales pour réussir dans un rôle. Ces qualités, difficilement mesurables par des systèmes automatisés, peuvent passer inaperçues, même si elles sont vitales pour le poste.
+        </p>
+
+        <h4>5. Refus automatique basé sur des critères stricts</h4>
+        <p>
+            Les systèmes ATS appliquent souvent des règles rigides. Si vous ne correspondez pas à 100 % des critères mentionnés dans l'offre d'emploi, même pour des aspects mineurs, vous risquez d'être automatiquement rejeté sans que votre dossier soit vu par un recruteur.
+        </p>
+        <p><strong>Exemple :</strong> Un poste peut demander une maîtrise d'une technologie spécifique que vous n'avez pas utilisée récemment. Même si vous êtes à l'aise avec des technologies similaires, l'ATS pourrait vous écarter en raison de cette exigence technique précise.</p>
+
+        <h3>Que faire ?</h3>
+        <p>
+            Il est essentiel d’adapter votre CV aux exigences des ATS en utilisant les mots-clés exacts présents dans l'offre d'emploi, en simplifiant le format de votre CV, et en vous assurant que toutes les compétences demandées sont bien visibles. Cela augmente vos chances de passer le filtre automatisé et d'être considéré par un recruteur humain. Cependant, même avec ces ajustements, il faut se rappeler que les ATS ne sont pas parfaits et qu'un excellent candidat peut parfois être rejeté pour des raisons purement techniques.
+        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Langage Vulgaire -->
+        <div class="modal fade" id="modalLangageVulgaire" tabindex="-1" aria-labelledby="modalLangageVulgaireLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLangageVulgaireLabel">Version Vulgaire et Directe</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                        Les ATS (Applicant Tracking Systems) sont là pour réduire la charge de travail des RH. Quand une entreprise poste une offre sur LinkedIn, par exemple, elle peut recevoir plus de 100 candidatures en une seule journée. Du coup, les RH n’ont pas que ça à faire de traiter manuellement 200 ou plus de CV par jour pour un poste (et encore, ça peut être plus d’un poste dans la même boîte). C’est là qu’interviennent les ATS : ils filtrent et réduisent les CV pour les RH, histoire de leur faciliter la vie. En général, tu reçois un beau refus automatique de la part de ces fameux ATS.
+                        </p>
+                        <p>
+En gros, en informatique, ça marche comme ça :
+                        </p>
+                        <p>python </p>
+<p>
+    <code>if score_de_votre_CV &lt; 50:</code><br>
+    <code>&nbsp;&nbsp;&nbsp;&nbsp;envoi(message_refus)</code>
+</p>
+<p>
+Littéralement, le système vérifie si ton score est en dessous d'un certain seuil et, si c’est le cas, tu te prends un message de refus. J’en ai reçu des centaines, et parfois le week-end à deux heures du matin (sérieusement, qui configure ces systèmes pour envoyer des refus à cette heure-là ?!).
+</p>
+                        <p>
+Le vrai problème avec les ATS, c'est que j'ai l’impression qu’ils sont programmés pour être hyper exigeants : si tu ne répètes pas exactement mot pour mot les tâches demandées, tu es direct refusé. J’en ai fait l’expérience plusieurs fois, même quand j’avais toutes les technos demandées sur mon CV. Genre, ils demandent des vieilles bibliothèques informatiques des années 1990 que personne n’utilise plus (genre WinDev outil dinosaure, sérieusement ?), et même je l'ai mis sur mon CV, je me suis fait rejeter mdr.
+                        </p>
+                        <p>
+Donc après quelques tests, j’ai commencé à reformuler mes expériences pour coller pile poil aux mots utilisés dans l’offre. Par exemple, si dans mon CV je mets "Développement de rapports et dashboards avec IBM Cognos Analytics", et que l'offre dit "Création et déploiement de rapports interactifs", je modifie direct en "Création et déploiement de rapports et dashboards interactifs avec IBM Cognos Analytics". Et si l’offre dit "Accompagnement des utilisateurs", je le rajoute direct, même si ça me paraissait évident à la base. Parce qu’apparemment, ce que tu penses évident, l'ATS, lui, s’en fout si il le trouve pas dans vos CVs ça ne matche pas avec les mots clés qu'il va chercher donc refus automatique.
+                        </p>
+<p>
+Deux options s'offrent à toi :
+                        </p>
+                        <ul>
+                            <li>
+Si tu maîtrises tout ce qui est demandé, repère les mots-clés dans les tâches (genre "déployer", "développer", "pipelines", "tests automatisés"), et utilise-les dans les descriptions de tes expériences (stage, alternance, etc.). Si une tâche est difficile ou que tu ne l’as jamais faite, ce n’est pas un problème, à moins qu’elle ne soit obligatoire.
+                            </li>
+                            <li>
+Si une tâche est obligatoire et que tu n’as absolument aucune idée de ce que c’est, tu la mets quand même dans ton CV. Que tu maîtrises ou pas, tu t’arranges pour que ça y figure, sinon l’ATS te pénalise. Ensuite, une fois que tu as passé le premier contact téléphonique qu'ils sont intéressé par ton profil, tu as tout intérêt à te former rapidement sur cet outil/langage/technologie.
+                            </li>
+                        </ul>
+                        <p>
+Mentir, ce n’est jamais la solution idéale, mais je t’assure que candidater et être rejeté par un robot que je pourrais moi-même coder, ça fout les nerfs. Me faire rejeter parce que je ne maîtrise pas une techno sur les 10 demandées, c’est ridicule. Quand j’envoyais mes candidatures dans des petites boîtes où un humain lisait le CV, j’avais 90% de réponses positives. Me faire refuser par un humain, ça passe, mais par un robot... C’est juste frustrant. Surtout quand tu sais que tu maîtrises 9/10 des technos demandées, mais que le robot ne prend pas ça en compte.
+                        </p>
+                        <p>
+Donc pour aider les autres, j’ai décidé de créer cet outil, la majorité de ceux existant au moment ou je code actuellement sont payant ou te laisse faire un seul essai gratuit et te laisse pas voir les compétences qui match et qui manque, donc presque ne servent à rien. Ce foutu robot d'ATS m’a fait perdre des opportunités où je savais que j’aurais pu cartonner. J’ai reçu des refus automatiques du genre "malgré vos compétences, votre candidature n’est pas retenue", "malheureusement votre candiature ne correspond pas à l'offre" sans blague j'ai toutes les compétences demandés, ces refus automatiques toujours formulés de la même façon.
+                            </p>
+                        <p>
+                            Malheureusement malgré que c'est mon domaine j'ai tarder un peu à découvrir ce système et puisque c'est mon domaine je sais développer un outil pareille (littéralement un jour de dév, et je sais désormais comment le contourner et vous aussi, si les infos ici ne sont pas suffisantes des explications suite à un score faible vous affichera un bouton pourquoi ce score, cliquer dessus pour voir les améliorations nécessaires.).
+                    
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
